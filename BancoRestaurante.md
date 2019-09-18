@@ -1,4 +1,4 @@
-# Bando_de_dados
+# Banco_de_dados
 CREATE DATABASE RESTAURANTE;
 USE RESTAURANTE;
 ALTER SCHEMA `restaurante`  DEFAULT CHARACTER SET utf8  DEFAULT COLLATE utf8_general_ci ;
@@ -211,6 +211,20 @@ INSERT INTO `restaurante`.`cliente` (`idCliente`, `Nome`, `Cpf`) VALUES ('6', 'W
 INSERT INTO `restaurante`.`cliente` (`idCliente`, `Nome`, `Cpf`) VALUES ('7', 'Amanda', '77777');
 INSERT INTO `restaurante`.`cliente` (`idCliente`, `Nome`, `Cpf`) VALUES ('8', 'Renata', '88888');
 INSERT INTO `restaurante`.`cliente` (`idCliente`, `Nome`, `Cpf`) VALUES ('9', 'Talysson', '99999');
+
+select * from usuario;
+INSERT INTO `restaurante`.`usuario` (`idUsuario`, `Login`, `Senha`, `Cliente_idCliente`, `Endereço_idEndereço`) VALUES ('1', '@Bocao', '1212', '1', '111');
+INSERT INTO `restaurante`.`usuario` (`idUsuario`, `Login`, `Senha`, `Cliente_idCliente`, `Endereço_idEndereço`) VALUES ('2', '@jc', '1313', '2', '222');
+INSERT INTO `restaurante`.`usuario` (`idUsuario`, `Login`, `Senha`, `Cliente_idCliente`, `Endereço_idEndereço`) VALUES ('3', '@latony', '1414', '3', '333');
+INSERT INTO `restaurante`.`usuario` (`idUsuario`, `Login`, `Senha`, `Cliente_idCliente`, `Endereço_idEndereço`) VALUES ('4', '@rodriguete', '1515', '4', '444');
+INSERT INTO `restaurante`.`usuario` (`idUsuario`, `Login`, `Senha`, `Cliente_idCliente`, `Endereço_idEndereço`) VALUES ('5', '@machuca', '1616', '5', '555');
+INSERT INTO `restaurante`.`usuario` (`idUsuario`, `Login`, `Senha`, `Cliente_idCliente`, `Endereço_idEndereço`) VALUES ('6', '@willmaxixi', '1717', '6', '666');
+INSERT INTO `restaurante`.`usuario` (`idUsuario`, `Login`, `Senha`, `Cliente_idCliente`, `Endereço_idEndereço`) VALUES ('7', '@mandinha', '1818', '7', '777');
+INSERT INTO `restaurante`.`usuario` (`idUsuario`, `Login`, `Senha`, `Cliente_idCliente`, `Endereço_idEndereço`) VALUES ('8', '@reh', '1919', '8', '888');
+INSERT INTO `restaurante`.`usuario` (`idUsuario`, `Login`, `Senha`, `Cliente_idCliente`, `Endereço_idEndereço`) VALUES ('9', '@talysson', '2020', '9', '999');
+
+select * from endereço;
+
 
 
 
