@@ -225,6 +225,13 @@ INSERT INTO `restaurante`.`usuario` (`idUsuario`, `Login`, `Senha`, `Cliente_idC
 
 select * from endereço;
 
+select * from cliente c
+join usuario u 
+on idcliente = idusuario;
+
+select c.idcliente ,c.Nome, u.Login, u.Senha from cliente c
+join usuario u 
+on idcliente = idusuario;
 
 
 
