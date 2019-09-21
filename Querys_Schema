@@ -24,26 +24,7 @@ CREATE TABLE IF NOT EXISTS `restaurante`.`Usuario` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE IF NOT EXISTS `restaurante`.`Pedido` (
-  `idPedido` INT(10) UNSIGNED NOT NULL,
-  `Tempo_de_Entrega` DATETIME NOT NULL,
-  `Funcionario_idFuncionario` INT(10) UNSIGNED NOT NULL,
-  `Usuario_idUsuario` INT(10) UNSIGNED NOT NULL,
-  PRIMARY KEY (`idPedido`),
-  INDEX `fk_Pedido_Funcionario1_idx` (`Funcionario_idFuncionario` ASC) ,
-  INDEX `fk_Pedido_Usuario1_idx` (`Usuario_idUsuario` ASC) ,
-  CONSTRAINT `fk_Pedido_Funcionario1`
-    FOREIGN KEY (`Funcionario_idFuncionario`)
-    REFERENCES `restaurante`.`Funcionario` (`idFuncionario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Pedido_Usuario1`
-    FOREIGN KEY (`Usuario_idUsuario`)
-    REFERENCES `restaurante`.`Usuario` (`idUsuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+
 
 CREATE TABLE IF NOT EXISTS `restaurante`.`Funcionario` (
   `idFuncionario` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -52,9 +33,6 @@ CREATE TABLE IF NOT EXISTS `restaurante`.`Funcionario` (
   `Cliente_idCliente` INT(11) NOT NULL,
   PRIMARY KEY (`idFuncionario`),
   INDEX `fk_Funcionario_Cliente1_idx` (`Cliente_idCliente` ASC) ,
-  CONSTRAINT `fk_Funcionario_Cliente1`
-    FOREIGN KEY (`Cliente_idCliente`)
-    REFERENCES `restaurante`.`Cliente` (`idCliente`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -112,21 +90,7 @@ CREATE TABLE IF NOT EXISTS `restaurante`.`Mesa` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE IF NOT EXISTS `restaurante`.`Prato` (
-  `idPrato` INT(11) NOT NULL,
-  `Valor` INT(11) NOT NULL,
-  `Nome` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idPrato`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE IF NOT EXISTS `restaurante`.`Bebida` (
-  `idBebida` INT(11) NOT NULL,
-  `Valor` INT(11) NULL DEFAULT NULL,
-  `Nome` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idBebida`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE IF NOT EXISTS `restaurante`.`Cliente` (
   `idCliente` INT(11) NOT NULL,
@@ -138,43 +102,53 @@ CREATE TABLE IF NOT EXISTS `restaurante`.`Cliente` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE IF NOT EXISTS `restaurante`.`Prato_has_Pedido` (
-  `Prato_idPrato` INT(11) NOT NULL,
-  `Pedido_idPedido` INT(10) UNSIGNED NOT NULL,
-  PRIMARY KEY (`Prato_idPrato`, `Pedido_idPedido`),
-  INDEX `fk_Prato_has_Pedido_Pedido1_idx` (`Pedido_idPedido` ASC) ,
-  INDEX `fk_Prato_has_Pedido_Prato1_idx` (`Prato_idPrato` ASC) ,
-  CONSTRAINT `fk_Prato_has_Pedido_Prato1`
-    FOREIGN KEY (`Prato_idPrato`)
-    REFERENCES `restaurante`.`Prato` (`idPrato`)
+
+
+CREATE TABLE IF NOT EXISTS `restaurante`.`pedido` (
+  `usuario_idUsuario` INT(10) UNSIGNED NOT NULL,
+  `produto_idproduto` INT(11) NOT NULL,
+  `idpedido` INT(11) NOT NULL,
+  `data` DATE NOT NULL,
+  PRIMARY KEY (`usuario_idUsuario`, `produto_idproduto`, `idpedido`),
+  INDEX `fk_usuario_has_produto_produto1_idx` (`produto_idproduto` ASC) ,
+  INDEX `fk_usuario_has_produto_usuario1_idx` (`usuario_idUsuario` ASC) ,
+  CONSTRAINT `fk_usuario_has_produto_usuario1`
+    FOREIGN KEY (`usuario_idUsuario`)
+    REFERENCES `restaurante`.`usuario` (`idUsuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Prato_has_Pedido_Pedido1`
-    FOREIGN KEY (`Pedido_idPedido`)
-    REFERENCES `restaurante`.`Pedido` (`idPedido`)
+  CONSTRAINT `fk_usuario_has_produto_produto1`
+    FOREIGN KEY (`produto_idproduto`)
+    REFERENCES `restaurante`.`produto` (`idproduto`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE IF NOT EXISTS `restaurante`.`Bebida_has_Pedido` (
-  `Bebida_idBebida` INT(11) NOT NULL,
-  `Pedido_idPedido` INT(10) UNSIGNED NOT NULL,
-  PRIMARY KEY (`Bebida_idBebida`, `Pedido_idPedido`),
-  INDEX `fk_Bebida_has_Pedido_Pedido1_idx` (`Pedido_idPedido` ASC) ,
-  INDEX `fk_Bebida_has_Pedido_Bebida1_idx` (`Bebida_idBebida` ASC) ,
-  CONSTRAINT `fk_Bebida_has_Pedido_Bebida1`
-    FOREIGN KEY (`Bebida_idBebida`)
-    REFERENCES `restaurante`.`Bebida` (`idBebida`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Bebida_has_Pedido_Pedido1`
-    FOREIGN KEY (`Pedido_idPedido`)
-    REFERENCES `restaurante`.`Pedido` (`idPedido`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+-- on join
+
+
+select u.Login, p.idpedido, p.data, pro.nome from usuario u 
+join pedido p 
+on u.idusuario = p.idpedido
+join produto pro 
+on pro.idproduto = p.idpedido ;
+
+select * from usuario u 
+join pedido p 
+on u.idusuario = p.idpedido;
+
+select * from usuario u 
+join produto p 
+on u.idusuario = p.idproduto
+;
+
+select * from produto pro 
+join pedido p 
+on pro.idproduto = produto_idproduto
+join usuario u 
+on u.idusuario = usuario_idusuario;
+
 
 select * from prato;
 INSERT INTO `restaurante`.`prato` (`idPrato`, `Valor`, `Nome`) VALUES ('3', '30', 'galeto');
