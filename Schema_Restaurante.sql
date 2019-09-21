@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS `restaurante`.`Pedido` (
     REFERENCES `restaurante`.`Usuario` (`idUsuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
+  
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -209,6 +210,57 @@ INSERT INTO `restaurante`.`cliente` (`idCliente`, `Nome`, `Cpf`) VALUES ('6', 'W
 INSERT INTO `restaurante`.`cliente` (`idCliente`, `Nome`, `Cpf`) VALUES ('7', 'Amanda', '77777');
 INSERT INTO `restaurante`.`cliente` (`idCliente`, `Nome`, `Cpf`) VALUES ('8', 'Renata', '88888');
 INSERT INTO `restaurante`.`cliente` (`idCliente`, `Nome`, `Cpf`) VALUES ('9', 'Talysson', '99999');
+
+select * from usuario;
+INSERT INTO `restaurante`.`usuario` (`idUsuario`, `Login`, `Senha`, `Cliente_idCliente`, `Endereço_idEndereço`) VALUES ('1', '@Bocao', '1212', '1', '111');
+INSERT INTO `restaurante`.`usuario` (`idUsuario`, `Login`, `Senha`, `Cliente_idCliente`, `Endereço_idEndereço`) VALUES ('2', '@jc', '1313', '2', '222');
+INSERT INTO `restaurante`.`usuario` (`idUsuario`, `Login`, `Senha`, `Cliente_idCliente`, `Endereço_idEndereço`) VALUES ('3', '@latony', '1414', '3', '333');
+INSERT INTO `restaurante`.`usuario` (`idUsuario`, `Login`, `Senha`, `Cliente_idCliente`, `Endereço_idEndereço`) VALUES ('4', '@rodriguete', '1515', '4', '444');
+INSERT INTO `restaurante`.`usuario` (`idUsuario`, `Login`, `Senha`, `Cliente_idCliente`, `Endereço_idEndereço`) VALUES ('5', '@machuca', '1616', '5', '555');
+INSERT INTO `restaurante`.`usuario` (`idUsuario`, `Login`, `Senha`, `Cliente_idCliente`, `Endereço_idEndereço`) VALUES ('6', '@willmaxixi', '1717', '6', '666');
+INSERT INTO `restaurante`.`usuario` (`idUsuario`, `Login`, `Senha`, `Cliente_idCliente`, `Endereço_idEndereço`) VALUES ('7', '@mandinha', '1818', '7', '777');
+INSERT INTO `restaurante`.`usuario` (`idUsuario`, `Login`, `Senha`, `Cliente_idCliente`, `Endereço_idEndereço`) VALUES ('8', '@reh', '1919', '8', '888');
+INSERT INTO `restaurante`.`usuario` (`idUsuario`, `Login`, `Senha`, `Cliente_idCliente`, `Endereço_idEndereço`) VALUES ('9', '@talysson', '2020', '9', '999');
+
+select * from endereço;
+
+select * from pedido;
+
+
+select * from funcionario;
+
+select * from bebida;
+
+select * from cliente c
+join usuario u 
+on idcliente = idusuario;
+
+select c.idcliente ,c.Nome, u.Login, u.Senha from cliente c
+join usuario u 
+on idcliente = idusuario;
+
+ALTER TABLE `restaurante`.`pedido` 
+ADD CONSTRAINT `fk_pedido_funcionario`
+  FOREIGN KEY (`funcionario_idFuncionario`)
+  REFERENCES `restaurante`.`funcionario` (`idFuncionario`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+ALTER TABLE funcionario DROP COLUMN funcionario_idFuncionario;
+
+ALTER TABLE pedido ADD CONSTRAINT fk_pedido_Funcionario
+FOREIGN KEY(funcionario_idFuncionario) REFERENCES funcionario (idFuncionario);
+
+
+
+ALTER TABLE `restaurante`.`pedido` 
+ADD COLUMN `funcionario_idFuncionario` INT(10) NOT NULL AFTER `data`,
+ADD INDEX `fk_pedido_funcionario1_idx` (`funcionario_idFuncionario` ASC), 
+ADD CONSTRAINT `fk_pedido_funcionario1`
+  FOREIGN KEY (`funcionario_idFuncionario`)
+  REFERENCES `restaurante`.`funcionario` (`idFuncionario`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
 
 
 
