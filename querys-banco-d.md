@@ -153,8 +153,7 @@ INSERT INTO `restaurante`.`cliente` (`idCliente`, `Nome`, `Cpf`) VALUES ('8', 'R
 INSERT INTO `restaurante`.`cliente` (`idCliente`, `Nome`, `Cpf`) VALUES ('9', 'Talysson', '99999');
 
 
-
-INSERT INTO `restaurante`.`usuario` (`idUsuario`, `Login`, `Senha`, `Cliente_idCliente`, `endereco_idendereco`) VALUES ('1', '@Bocao', '1212', '1', '111');
+INSERT INTO `restaurante`.`usuario` (`idusuario`, `login`, `senha`, `cliente_idcliente`, `endereco_idendereco`) VALUES ('1', '@Bocao', '1212', '1', '111');
 INSERT INTO `restaurante`.`usuario` (`idusuario`, `login`, `senha`, `cliente_idcliente`, `endereco_idendereco`) VALUES ('2', '@jc', '1313', '2', '222');
 INSERT INTO `restaurante`.`usuario` (`idusuario`, `login`, `senha`, `cliente_idcliente`, `endereco_idendereco`) VALUES ('3', '@latony', '1414', '3', '333');
 INSERT INTO `restaurante`.`usuario` (`idusuario`, `login`, `senha`, `cliente_idcliente`, `endereco_idendereco`) VALUES ('4', '@rodriguete', '1515', '4', '444');
@@ -208,3 +207,20 @@ join pedido p
 on u.idusuario = p.idpedido
 join produto pro 
 on produto_idproduto = pro.idproduto;
+
+select * from usuario u 
+join pedido p 
+on u.idusuario = p.idpedido
+join produto pro 
+on produto_idproduto = pro.idproduto
+join cliente c 
+on idcliente=idusuario;
+
+
+select u.login, c.nome, p.idpedido, p.data, pro.nome, pro.valor from usuario u 
+join pedido p 
+on u.idusuario = p.idpedido
+join produto pro 
+on produto_idproduto = pro.idproduto
+join cliente c  
+on u.idusuario = c.idcliente;
